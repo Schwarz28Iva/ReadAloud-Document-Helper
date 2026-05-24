@@ -1,0 +1,124 @@
+.upload-area {
+    background-color: #ffffff;
+    border: 2px dashed #cccccc;
+    padding: 30px;
+    width: 100%;  /* Aceeași procentuală ca și .service */
+    height: 200px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.upload-area .fa-file-alt {
+    color: #1473c6; /* Culoarea iconului */
+    margin-bottom: 20px; /* Spațiu între icon și buton */
+}
+
+.upload-area .fa-check {
+    color: #159548; /* Culoarea iconului */
+    margin-bottom: 20px; /* Spațiu între icon și buton */
+}
+
+.upload-area {
+    background-color: #ffffff;
+    border: 2px dashed #cccccc;
+    padding: 30px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hover {
+    background-color: #e2e6ea; /* Culoarea de fundal când fișierul este peste zona de drop */
+}
+
+.file-select {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.file-select:hover {
+    text-decoration: underline;
+}
+
+#fileDetails {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+#fileName {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 10px;  /* Adăugat spațiu între buton și text */
+    padding-right: 10px;
+}
+
+.remove-btn {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0;
+}
+
+.btn-danger {
+    background-color: #ee6e73; /* softer red */
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #ea5f66; /* slightly darker on hover */
+}
+
+.file-details {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%; /* Ajustează la dimensiunea corectă */
+}
+
+.file-name {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 10px;  /* Adăugat spațiu între buton și text */
+    padding-right: 10px;
+}
+
+
+.remove-btn {
+    border-radius: 50%; /* Transformă butonul în cerc */
+    width: 30px; /* Lățimea butonului */
+    height: 30px; /* Înălțimea butonului */
+    line-height: 30px; /* Alinează textul vertical */
+    text-align: center; /* Alinează textul orizontal */
+    padding: 0; /* Elimină padding-ul implicit */
+}
+
+.remove-btn:hover {
+    background-color: darkred;
+}

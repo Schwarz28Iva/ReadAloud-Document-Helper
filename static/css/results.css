@@ -1,0 +1,26 @@
+.text-container {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    white-space: pre-wrap; /* Menține formatarea textului, dacă este necesar */
+}
+
+.btn-secondary {
+    cursor: pointer;
+}
+
+.text-container {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    white-space: pre-wrap; /* Menține formatarea textului, dacă este necesar */
+    text-align: justify; /* Alinează textul justificat */
+    overflow-y: auto; /* Permite scroll dacă textul depășește înălțimea containerului */
+    height: 300px; /* Specifică înălțimea containerului de text */
+}
+
+#ocrResult .btn-secondary {
+    cursor: pointer;
+}

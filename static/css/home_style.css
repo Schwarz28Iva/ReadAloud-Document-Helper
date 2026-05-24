@@ -1,0 +1,93 @@
+.content-area {
+    padding-top: 70px;
+    padding-bottom: 70px; /* Asigură un spațiu suficient sub conținut pentru a nu se suprapune cu footer-ul */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px); /* adjust based on navbar and footer height */
+    text-align: center;
+    box-sizing: border-box;
+    color: #000000;
+    position: relative;
+    z-index: 1;
+}
+
+.content-area, .content-area * {
+    transition: opacity 0.3s ease;
+}
+
+.services-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .services-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.service {
+    width: 45%;
+    max-width: 500px; /* Prevents images from becoming too large */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .service {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
+
+.service img {
+    width: 100%;
+    max-width: 1024px;
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.service:hover img {
+    transform: scale(1.1);
+}
+
+.service-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.service:hover .service-info {
+    transform: translateY(0);
+}
+
+.service-title {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Aclonica';
+    font-size: 22px;
+    color: #fff;
+    padding: 10px 0;
+    font-weight: bold; /* îngroșarea fontului */
+    text-shadow: 4px 4px 4px black; /* umbra textului pentru a spori lizibilitatea */
+}

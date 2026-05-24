@@ -1,0 +1,43 @@
+.lateral-content {
+    width: 45%;  /* Aceeași procentuală ca și .service */
+    max-width: 500px;  /* Aceeași valoare max-width ca și .service */
+    height: 200px;
+}
+
+#customText {
+    font-size: 18px; /* Mărimea fontului pentru textul personalizabil */
+    color: #333; /* Culoarea textului */
+    padding: 10px; /* Spațiu în jurul textului */
+    border-bottom: 1px solid #ccc; /* O linie subtilă sub text */
+}
+
+.lateral-content {
+    display: none; /* Stilul inițial ar trebui să fie none pentru a fi setat dinamic */
+}
+
+@media (max-width: 768px) {
+    .lateral-content {
+        display: block; /* Exemplu de regulă care ar putea influența afișarea în viewports mici */
+    }
+}
+
+.lateral-content {
+    display: flex;
+    flex-direction: column; /* Organizează elementele vertical */
+    align-items: center; /* Centrează conținutul */
+}
+
+/* Asigură că textul apare vizibil deasupra */
+#customText {
+    font-size: 18px; 
+    color: #333;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+/* Poziționează butonul Process File dedesubt */
+#processBtn_enchant, #processBtn_sorcerer {
+    width: 200px;
+    margin-top: 20px; /* Adaugă spațiu între zona de upload și buton */
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadAloud - Upload PDF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Amiri Quran' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/body.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lateral_content.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload_file.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/audio_player.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/options.css') }}">
+    <!-- <link rel="stylesheet" href="CSS/results.css"> -->
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Read🦉Aloud</a>
+    </div>
+</nav>
+
+<div class="blurred-background"></div>
+
+<div class="content-area">
+    <h2 id="main-title" style="font-family: 'Aclonica'">Your Wizardly Assistant for Readings</h2>
+    <p id="main-description" style="font-family: 'Amiri Quran'; font-size: 22px;">ReadAloud invites dreamers of all ages to experience the joy of reading in a whole new light, with a touch of magic.</p>
+    <div class="services-container">
+        <div class="service" id="image-to-text">
+            <img src="{{ url_for('static', filename='photos/ocr_image.jpg') }}" alt="Image to Text">
+            <span class="service-title">Enchanted Vision</span>
+            <div class="service-info">Transform images into editable text with ease.</div>
+        </div>
+    
+        <!-- Lateral content pentru Enchanted Vision -->
+        <div class="lateral-content" id="lateral-content-enchant" style="display: none;">
+            <p class="text-center mt-2 mb-4" style="font-family: 'Amiri Quran'; font-size: 22px;     margin-top: 20px;
+    padding: 20px;">Simply upload a PDF, and watch as it becomes editable text. It's like magic!</p>
+            <div class="upload-area text-center p-5 my-3 border rounded" id="drop_zone_enchant">
+                <i class="fas fa-file-alt fa-3x"></i>
+                <button class="btn btn-danger" onclick="document.getElementById('fileInput_enchant').click();">Select PDF file</button>
+                <p style="font-family: 'Amiri Quran';">or drop your PDF here</p>
+                <input type="file" id="fileInput_enchant" accept=".pdf" style="display: none;" />
+                <div id="fileDetails_enchant" class="file-details mt-3" style="display: none;">
+                    <button id="removeBtn_enchant" onclick="removeFileEnchant()" class="btn btn-sm btn-outline-danger remove-btn">X</button>
+                    <span class="file-name" id="fileName_enchant"></span>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button id="processBtn_enchant" class="btn btn-primary" style="display: none;">Process File</button>
+            </div>
+        </div>
+    
+        <!-- Lateral content pentru Sorcerer's Voice -->
+        <div class="lateral-content" id="lateral-content-sorcerer" style="display: none;">
+
+            <div class="options-container mt-4">
+                <h3 class="options-heading">What would you like to do today?</h3>
+                <div class="option">
+                    <label class="option-label custom-checkbox">
+                        <input type="radio" name="voiceOption" value="upload" checked>
+                        <span class="checkmark"></span>
+                        Upload a document for voice conversion.
+                    </label>
+                </div>
+                <div class="option">
+                    <label class="option-label custom-checkbox">
+                        <input type="radio" name="voiceOption" value="write">
+                        <span class="checkmark"></span>
+                        Type in text directly and listen to it.
+                    </label>
+                </div>
+            </div>
+            
+            
+            
+            <div class="upload-area text-center p-5 my-3 border rounded" id="drop_zone_sorcerer" style="display: none;">
+                <i class="fas fa-file-alt fa-3x"></i>
+                <button class="btn btn-danger" onclick="document.getElementById('fileInput_sorcerer').click();">Select PDF file</button>
+                <p style="font-family: 'Amiri Quran';">or drop your PDF here</p>
+                <input type="file" id="fileInput_sorcerer" accept=".pdf" style="display: none;" />
+                <div id="fileDetails_sorcerer" class="file-details mt-3" style="display: none;">
+                    <button id="removeBtn_sorcerer" onclick="removeFileSorcerer()" class="btn btn-sm btn-outline-danger remove-btn">X</button>
+                    <span class="file-name" id="fileName_sorcerer"></span>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <!-- Buton pentru procesarea fișierului încărcat -->
+                <button id="processBtn_sorcerer_file" class="btn btn-primary" style="display: none;">Process File</button>
+                <!-- Buton pentru procesarea textului scris -->
+                <button id="processBtn_sorcerer_text" class="btn btn-primary" style="display: none;">Process Text</button>
+            </div>
+        </div>
+
+        <div class="service" id="text-to-speech">
+            <img src="{{ url_for('static', filename='photos/text_to_speech_image.jpg') }}" alt="Text to Speech">
+            <span class="service-title">Sorcerer's Voice</span>
+            <div class="service-info">Bring text to life with our simple text-to-speech service.</div>
+        </div>
+    </div>
+
+    <!-- Processing Overlay (inițial ascuns) -->
+    <div id="processingOverlay" style="display: none;">
+        <div class="processingMessage">Processing...</div>
+    </div>
+
+    <div class="audio-wrapper" style="display: none;">
+        <h2>Our storyteller is ready!</h2>
+              <audio id="audio-player" controls>
+                <source src="" type="audio/mp3">
+                Your browser does not support the audio element.
+              </audio>
+    </div>
+
+    <div id="ocrResult" class="container mt-4" style="display: none;">
+        <div class="text-container bg-light p-4" style="height: 300px; overflow-y: auto; text-align: justify;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <button class="btn btn-secondary btn-sm" onclick="copyText()">Copy Text</button>
+            </div>
+                                                                                                                                                            <p id="recognizedText"></p>
+            </div>
+    </div>
+
+    <div id="textForSpeech" class="container mt-4" style="display: none;">
+        <div class="text-container bg-light p-4" contenteditable="true" style="height: 300px; overflow-y: auto; text-align: justify;" 
+             onfocus="if(this.innerText == 'Write here your text......') { this.innerText = ''; this.style.color = '#000'; }"
+             onblur="if(this.innerText == '') { this.innerText = 'Write here your text......'; this.style.color = '#ccc'; }">
+            Write here your text......
+        </div>
+    </div>
+    
+
+</div>
+
+<footer class="footer">
+    © 2025 ReadAloud by Valentina Indrei
+</footer>
+
+<!-- JavaScripts -->
+<script src="https://cdn.socket.io/socket.io-4.0.0.js"></script>
+<script src="{{ url_for('static', filename='JavaScript/visibility.js') }}"></script>
+<script src="{{ url_for('static', filename='JavaScript/drag_and_drop.js') }}"></script>
+<script src="{{ url_for('static', filename='JavaScript/process.js') }}"></script>
+</body>
+</html>

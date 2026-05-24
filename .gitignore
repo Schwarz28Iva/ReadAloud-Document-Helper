@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Local configuration and secrets
+.env
+*.log
+
+# Generated runtime files
+static/audio/*
+!static/audio/.gitkeep
+static/uploads/*
+!static/uploads/.gitkeep
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

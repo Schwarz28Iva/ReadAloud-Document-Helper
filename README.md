@@ -76,6 +76,26 @@ The application provides two main tools:
 - Bootstrap
 - Socket.IO
 
+## Architecture
+
+```mermaid
+flowchart LR
+    UI[Web Interface] --> APP[Flask + Socket.IO]
+
+    APP --> OCR[OCR Workflow]
+    OCR --> IMG[pdf2image]
+    IMG --> TESS[Tesseract OCR]
+    TESS --> TEXT[Editable Text]
+
+    APP --> TTS[Text-to-Speech Workflow]
+    TTS --> INPUT{Input Type}
+    INPUT -->|Typed text| CLEAN[Text Processing]
+    INPUT -->|PDF document| PDF[PyPDF2]
+    PDF --> CLEAN
+    CLEAN --> CLOUD[Google Cloud Text-to-Speech]
+    CLOUD --> AUDIO[MP3 Audio]
+```
+
 ## Running Locally
 
 ### Requirements
@@ -92,6 +112,24 @@ Clone the repository:
 ```bash
 git clone https://github.com/Schwarz28Iva/ReadAloud-Document-Helper.git
 cd ReadAloud-Document-Helper
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Or on macOS/Linux:
+
+```bash
+source .venv/bin/activate
 ```
 
 Install the Python dependencies:
@@ -120,17 +158,18 @@ python server.py
 
 Then open the local address displayed by Flask in your browser.
 
+## Current Limitations
+
+- OCR is currently configured for English text.
+- OCR requires Tesseract and Poppler to be installed locally.
+- Speech generation requires an internet connection and a Google Cloud Text-to-Speech API key.
+- Text submitted for speech synthesis is sent to the Google Cloud Text-to-Speech API.
+
 ## Project Motivation
 
 ReadAloud was developed as an exploration of document accessibility and transformation, combining OCR and text-to-speech functionality in one interactive application.
 
 The project involved integrating document processing, OCR, external APIs, WebSockets, backend services, and frontend interaction into an end-to-end web application.
-
-## Notes
-
-- Uploaded documents are intended to be processed by the application.
-- Generated audio files are excluded from the repository.
-- API keys and local environment settings belong in `.env`, which is ignored by Git.
 
 ## Possible Improvements
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Read🦉Aloud</a>
+        <a class="navbar-brand" href="#">ReadAloud</a>
     </div>
 </nav>
 
@@ -46,7 +46,7 @@
                 <p style="font-family: 'Amiri Quran';">or drop your PDF here</p>
                 <input type="file" id="fileInput_enchant" accept=".pdf" style="display: none;" />
                 <div id="fileDetails_enchant" class="file-details mt-3" style="display: none;">
-                    <button id="removeBtn_enchant" onclick="removeFileEnchant()" class="btn btn-sm btn-outline-danger remove-btn">X</button>
+                    <button id="removeBtn_enchant" class="btn btn-sm btn-outline-danger remove-btn">X</button>
                     <span class="file-name" id="fileName_enchant"></span>
                 </div>
             </div>
@@ -84,12 +84,12 @@
                 <p style="font-family: 'Amiri Quran';">or drop your PDF here</p>
                 <input type="file" id="fileInput_sorcerer" accept=".pdf" style="display: none;" />
                 <div id="fileDetails_sorcerer" class="file-details mt-3" style="display: none;">
-                    <button id="removeBtn_sorcerer" onclick="removeFileSorcerer()" class="btn btn-sm btn-outline-danger remove-btn">X</button>
+                    <button id="removeBtn_sorcerer" class="btn btn-sm btn-outline-danger remove-btn">X</button>
                     <span class="file-name" id="fileName_sorcerer"></span>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <!-- Buton pentru procesarea fișierului încărcat -->
+                <!-- Buton pentru procesarea fisierului incarcat -->
                 <button id="processBtn_sorcerer_file" class="btn btn-primary" style="display: none;">Process File</button>
                 <!-- Buton pentru procesarea textului scris -->
                 <button id="processBtn_sorcerer_text" class="btn btn-primary" style="display: none;">Process Text</button>
@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <!-- Processing Overlay (inițial ascuns) -->
+    <!-- Processing Overlay (initial ascuns) -->
     <div id="processingOverlay" style="display: none;">
         <div class="processingMessage">Processing...</div>
     </div>
@@ -147,3 +147,4 @@
 <script src="{{ url_for('static', filename='JavaScript/process.js') }}"></script>
 </body>
 </html>
+

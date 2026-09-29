@@ -1,4 +1,4 @@
-// Global variable to track the current state of the page
+﻿// Global variable to track the current state of the page
 let currentState = "default"; // Possible values: "default", "enchanted", "sorcerer"
 
 function resetProcessingButtons() {
@@ -92,25 +92,3 @@ window.addEventListener('popstate', (event) => {
 
 
 
-document.querySelectorAll('input[name="voiceOption"]').forEach(input => {
-    input.addEventListener('change', function() {
-        const uploadArea = document.getElementById('drop_zone_sorcerer');
-        const textArea = document.getElementById('textForSpeech');
-        
-        if (this.value === 'upload') {
-            uploadArea.style.display = 'flex';
-            textArea.style.display = 'none';
-        } else if (this.value === 'write') {
-            uploadArea.style.display = 'none';
-            textArea.style.display = 'block';
-        }
-    });
-});
-
-// Inițializare - asigurăm că starea inițială este setată corect
-window.addEventListener('DOMContentLoaded', () => {
-    const checkedOption = document.querySelector('input[name="voiceOption"]:checked');
-    if (checkedOption) {
-        checkedOption.dispatchEvent(new Event('change'));
-    }
-});

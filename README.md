@@ -1,4 +1,4 @@
-﻿# ReadAloud 📖🔊
+# ReadAloud 📖🔊
 
 A web application that transforms PDF documents into **editable text or spoken audio** through OCR and text-to-speech processing.
 

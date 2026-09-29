@@ -1,15 +1,15 @@
-# ReadAloud 📖🔊
+# ReadAloud Ã°Å¸â€œâ€“Ã°Å¸â€Å 
 
 A web application that transforms PDF documents into **editable text or spoken audio** through OCR and text-to-speech processing.
 
 ReadAloud combines a Flask backend with an interactive web interface and provides two main tools:
 
-- 🔎 **Enchanted Vision** — extracts editable text from scanned or image-based PDFs using OCR.
-- 🔊 **Sorcerer's Voice** — converts uploaded PDF documents or directly entered text into speech.
+- Ã°Å¸â€Å½ **Enchanted Vision** Ã¢â‚¬â€ extracts editable text from scanned or image-based PDFs using OCR.
+- Ã°Å¸â€Å  **Sorcerer's Voice** Ã¢â‚¬â€ converts uploaded PDF documents or directly entered text into speech.
 
 ## Features
 
-### 🔎 PDF → Text
+### Ã°Å¸â€Å½ PDF Ã¢â€ â€™ Text
 
 - Drag-and-drop PDF upload
 - PDF-to-image conversion
@@ -17,7 +17,7 @@ ReadAloud combines a Flask backend with an interactive web interface and provide
 - Extracted text displayed directly in the browser
 - Copy extracted text to clipboard
 
-### 🔊 Text / PDF → Speech
+### Ã°Å¸â€Å  Text / PDF Ã¢â€ â€™ Speech
 
 - Convert typed text to speech
 - Extract text from PDF documents
@@ -50,32 +50,6 @@ ReadAloud combines a Flask backend with an interactive web interface and provide
 - JavaScript
 - Bootstrap
 - Socket.IO
-
-## Architecture
-
-```text
-                         ┌───────────────┐
-                         │   ReadAloud   │
-                         │ Web Interface │
-                         └───────┬───────┘
-                                 │
-                    ┌────────────┴────────────┐
-                    │                         │
-               OCR workflow              TTS workflow
-                    │                         │
-                 PDF input              Text / PDF input
-                    │                         │
-                 pdf2image                  PyPDF2
-                    │                         │
-                 Tesseract                    │
-                    │                         │
-               Extracted text ────────────────┘
-                    │
-                    └──────────────► Google Cloud TTS
-                                           │
-                                           ▼
-                                       MP3 audio
-```
 
 ## Running Locally
 

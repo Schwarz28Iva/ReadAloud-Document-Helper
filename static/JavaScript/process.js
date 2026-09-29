@@ -1,14 +1,14 @@
-﻿// SelectÄƒm elementele necesare
+// Select required elements
 const processFileBtn = document.getElementById('processBtn_sorcerer_file');
 const processTextBtn = document.getElementById('processBtn_sorcerer_text');
-const audioWrapper = document.querySelector('.audio-wrapper'); 
+const audioWrapper = document.querySelector('.audio-wrapper');
 const processingOverlay = document.getElementById('processingOverlay');
 const audioElement = document.getElementById('audio-player');
 
-// Conectare la server prin WebSockets
+// Connect to the server through WebSockets
 const socket = io();
 
-// AscultÄƒtor pentru opÈ›iuni (upload sau text)
+// Handle voice input mode selection
 document.querySelectorAll('input[name="voiceOption"]').forEach(input => {
     input.addEventListener('change', function () {
         const uploadArea = document.getElementById('drop_zone_sorcerer');
@@ -16,7 +16,7 @@ document.querySelectorAll('input[name="voiceOption"]').forEach(input => {
         const fileInput = document.getElementById('fileInput_sorcerer');
         const textInputArea = document.querySelector('#textForSpeech .text-container');
 
-        // ResetÄƒm butoanele È™i playerul audio la fiecare schimbare de mod
+        // Reset buttons and audio player whenever the input mode changes
         audioWrapper.style.display = 'none';
 
         if (this.value === 'upload') {
@@ -25,7 +25,7 @@ document.querySelectorAll('input[name="voiceOption"]').forEach(input => {
             processFileBtn.style.display = 'none';
             processTextBtn.style.display = 'none';
 
-            // AfiÈ™Äƒm butonul doar dupÄƒ ce un fiÈ™ier este selectat
+            // Show the button only after a file has been selected
             fileInput.onchange = () => {
                 if (fileInput.files.length > 0) {
                     processFileBtn.style.display = 'block';
@@ -37,7 +37,7 @@ document.querySelectorAll('input[name="voiceOption"]').forEach(input => {
             processFileBtn.style.display = 'none';
             processTextBtn.style.display = 'none';
 
-            // AfiÈ™Äƒm butonul doar dacÄƒ sunt minim 100 de caractere Ã®n text
+            // Show the button when the entered text contains at least 10 characters
             textInputArea.oninput = () => {
                 if (textInputArea.innerText.trim().length >= 10) {
                     processTextBtn.style.display = 'block';
@@ -49,50 +49,49 @@ document.querySelectorAll('input[name="voiceOption"]').forEach(input => {
     });
 });
 
-// Gestionare procesare text (Sorcerer's Voice)
+// Process directly entered text
 processTextBtn.addEventListener('click', function () {
     const text = document.querySelector('#textForSpeech .text-container').innerText.trim();
 
     if (text.length < 10) {
-        alert("Text is too short. Please write at least 10 characters.");
+        alert('Text is too short. Please write at least 10 characters.');
         return;
     }
 
-    console.log('ðŸ“¤ Sending text for processing...');
-    processingOverlay.style.display = 'flex'; // AfiÈ™Äƒm mesajul de procesare
+    console.log('Sending text for processing...');
+    processingOverlay.style.display = 'flex';
 
     socket.emit('sendText', { text: text });
 });
 
-// Gestionare rÄƒspuns de la server
+// Handle generated audio returned by the server
 socket.on('audioReady', function (data) {
-    console.log('ðŸŽ§ Audio file received:', data.audioUrl);
-    processingOverlay.style.display = 'none'; // Ascundem mesajul "Processing..."
-    
+    console.log('Audio file received:', data.audioUrl);
+    processingOverlay.style.display = 'none';
+
     audioElement.src = data.audioUrl;
-    audioWrapper.style.display = 'block'; // AfiÈ™Äƒm player-ul audio
+    audioWrapper.style.display = 'block';
 });
 
 socket.on('error', function (error) {
-    console.error("âŒ Error from server:", error.message);
-    processingOverlay.style.display = 'none'; // Ascundem mesajul "Processing..."
-    alert("Error: " + error.message);
+    console.error('Error from server:', error.message);
+    processingOverlay.style.display = 'none';
+    alert('Error: ' + error.message);
 });
 
-// Gestionare procesare fiÈ™ier (Sorcerer's Voice)
+// Process an uploaded PDF for text-to-speech
 processFileBtn.addEventListener('click', function () {
     const fileInput = document.getElementById('fileInput_sorcerer');
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("Please select a PDF file first.");
+        alert('Please select a PDF file first.');
         return;
     }
 
     const formData = new FormData();
     formData.append('file', file);
 
-    // AfiÈ™Äƒm animaÈ›ia de procesare
     processingOverlay.style.display = 'flex';
 
     fetch('/process_pdf', {
@@ -107,16 +106,16 @@ processFileBtn.addEventListener('click', function () {
             audioElement.src = data.audioUrl;
             audioWrapper.style.display = 'block';
         } else {
-            alert("Error processing file: " + data.error);
+            alert('Error processing file: ' + data.error);
         }
     })
     .catch(error => {
         processingOverlay.style.display = 'none';
-        alert("An error occurred: " + error.message);
+        alert('An error occurred: ' + error.message);
     });
 });
 
-// IniÈ›ializare: setÄƒm starea iniÈ›ialÄƒ corect
+// Initialize the currently selected voice input mode
 window.addEventListener('DOMContentLoaded', () => {
     const checkedOption = document.querySelector('input[name="voiceOption"]:checked');
     if (checkedOption) {
@@ -124,24 +123,23 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// SelectÄƒm elementele necesare
+// OCR elements
 const processOCRBtn = document.getElementById('processBtn_enchant');
 const ocrTextContainer = document.getElementById('recognizedText');
 
-// Gestionare procesare OCR (Enchanted Vision)
+// Process an uploaded PDF with OCR
 processOCRBtn.addEventListener('click', function () {
     const fileInput = document.getElementById('fileInput_enchant');
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("Please select a PDF file first.");
+        alert('Please select a PDF file first.');
         return;
     }
 
     const formData = new FormData();
     formData.append('file', file);
 
-    // AfiÈ™Äƒm animaÈ›ia de procesare
     processingOverlay.style.display = 'flex';
 
     fetch('/process_ocr', {
@@ -156,11 +154,11 @@ processOCRBtn.addEventListener('click', function () {
             ocrTextContainer.textContent = data.recognizedText;
             document.getElementById('ocrResult').style.display = 'block';
         } else {
-            alert("Error processing OCR: " + data.error);
+            alert('Error processing OCR: ' + data.error);
         }
     })
     .catch(error => {
         processingOverlay.style.display = 'none';
-        alert("An error occurred: " + error.message);
+        alert('An error occurred: ' + error.message);
     });
 });
